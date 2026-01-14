@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %}New Endpoint - {{ project.name }}{% endblock %}
+
+{% block content %}
+<a href="{{ url_for('admin.view_project', project_id=project.id) }}" class="back-link">← Back to {{ project.name }}</a>
+
+<h1>Create New Endpoint for {{ project.name }}</h1>
+
+<form method="POST">
+    <label>HTTP Method *</label>
+    <select name="method" required>
+        <option value="GET">GET</option>
+        <option value="POST">POST</option>
+        <option value="PUT">PUT</option>
+        <option value="DELETE">DELETE</option>
+        <option value="PATCH">PATCH</option>
+    </select>
+    
+    <label>Path * (e.g., /users or /invoice)</label>
+    <input type="text" name="path" required placeholder="/users">
+    
+    <label>Response Type *</label>
+    <select name="response_type" id="responseType" onchange="toggleFields()" required>
+        <option value="json">JSON Response</option>
+        <option value="file">File (PDF, etc.)</option>
+    </select>
+    
+    <div id="jsonFields">
+        <label>Response Body (JSON) *</label>
+        <textarea name="response_body" placeholder='{"users": [{"id": 1, "name": "John"}]}'></textarea>
+    </div>
+    
+    <div id="fileFields" style="display: none;">
+        <label>File Path * (e.g., C:\files\invoice.pdf)</label>
+        <input type="text" name="file_path" placeholder="C:\files\document.pdf">
+    </div>
+    
+    <button type="submit" class="btn">Create Endpoint</button>
+</form>
+
+<script>
+function toggleFields() {
+    const type = document.getElementById('responseType').value;
+    document.getElementById('jsonFields').style.display = type === 'json' ? 'block' : 'none';
+    document.getElementById('fileFields').style.display = type === 'file' ? 'block' : 'none';
+}
+</script>
+{% endblock %}

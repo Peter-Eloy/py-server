@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}New Project{% endblock %}
+
+{% block content %}
+<a href="{{ url_for('admin.index') }}" class="back-link">← Back to Projects</a>
+
+<h1>Create New Project</h1>
+
+<form method="POST">
+    <label>Project Name *</label>
+    <input type="text" name="name" required placeholder="e.g., CustomerAPI">
+    
+    <label>Description</label>
+    <textarea name="description" placeholder="Optional description"></textarea>
+    
+    <button type="submit" class="btn">Create Project</button>
+</form>
+{% endblock %}

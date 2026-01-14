@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}Projects - Admin{% endblock %}
+
+{% block content %}
+<h1>Mock API Projects</h1>
+<a href="{{ url_for('admin.new_project') }}" class="btn">+ New Project</a>
+
+<table>
+    <thead>
+        <tr>
+            <th>Project Name</th>
+            <th>Description</th>
+            <th>Endpoints</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for project in projects %}
+        <tr>
+            <td><strong>{{ project.name }}</strong></td>
+            <td>{{ project.description }}</td>
+            <td>{{ project.endpoints|length }} endpoints</td>
+            <td>
+                <a href="{{ url_for('admin.view_project', project_id=project.id) }}">View Endpoints</a>
+            </td>
+        </tr>
+        {% else %}
+        <tr>
+            <td colspan="4" style="text-align: center; padding: 40px;">No projects yet. Create one!</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
